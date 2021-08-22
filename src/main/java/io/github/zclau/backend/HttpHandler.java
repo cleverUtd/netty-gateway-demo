@@ -25,7 +25,8 @@ public class HttpHandler extends ChannelInboundHandlerAdapter {
         try {
             FullHttpRequest request = (FullHttpRequest) msg;
             String uri = request.uri();
-            log.info("接收到的请求url为{}", uri);
+//            log.info("接收到的请求url为{}", uri);
+            System.out.println("接收到的请求url为 " + uri);
             this.handleResponse(request, ctx, "hello, zclau");
         } catch (Exception e) {
             e.printStackTrace();

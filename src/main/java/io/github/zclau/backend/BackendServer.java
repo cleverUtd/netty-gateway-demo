@@ -40,7 +40,7 @@ public class BackendServer {
                     .childHandler(new HttpInitializer());
 
             final Channel channel = serverBootstrap.bind(port).sync().channel();
-            log.info("netty http server start... listening port:{}", port);
+            System.out.print("netty http server start... listening port: " + port);
             channel.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
