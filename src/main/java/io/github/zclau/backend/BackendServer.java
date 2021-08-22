@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author liuzicong
  */
 @Slf4j
-public class NettyHttpServer {
+public class BackendServer {
 
     public static void main(String[] args) throws InterruptedException {
         // TODO 改为环境变量获取
@@ -37,7 +37,7 @@ public class NettyHttpServer {
 
             serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler();
+                    .childHandler(new HttpInitializer());
 
             final Channel channel = serverBootstrap.bind(port).sync().channel();
             log.info("netty http server start... listening port:{}", port);
