@@ -20,10 +20,10 @@ public class NettyGatewayServerApplication {
     public final static String GATEWAY_VERSION = "3.0.0";
 
     public static void main(String[] args) {
-        String proxyPort = System.getProperty("proxyPort", "8888");
+        String proxyPort = System.getProperty("proxyPort", "9999");
 
         // 这是多个后端url走随机路由的例子
-        String proxyServers = System.getProperty("proxyServers", "http://localhost:8801,http://localhost:8802");
+        String proxyServers = System.getProperty("proxyServers", "http://localhost:8088");
         int port = Integer.parseInt(proxyPort);
         System.out.println(GATEWAY_NAME + " " + GATEWAY_VERSION + " starting...");
 
@@ -46,7 +46,7 @@ public class NettyGatewayServerApplication {
                     .childHandler(new HttpInboundInitializer(Arrays.asList(proxyServers.split(","))));
 
             Channel ch = b.bind(port).sync().channel();
-            System.out.println(GATEWAY_NAME + " " + GATEWAY_VERSION + " started at http://localhost:" + port + " for servers:" + proxyServers.toString());
+            System.out.println(GATEWAY_NAME + " " + GATEWAY_VERSION + " started at http://localhost:" + port + " for backend servers:" + proxyServers.toString());
             ch.closeFuture().sync();
         } catch (Exception ex) {
             ex.printStackTrace();
